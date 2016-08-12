@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Database_Helpers
 {
-    public class Database_Helpers
+    public class helper
     {
 
         /// <summary>
