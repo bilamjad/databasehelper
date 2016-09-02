@@ -27,7 +27,7 @@ namespace Database_Helpers
             try
             {
                 #region query_builder
-                string query = "Insert into dbo." + table_name + " (";
+                string query = "Insert into dbo.[" + table_name + "] (";
                 foreach (var col in dataset)
                 {
                     query += col.Key.ToString() + ",";
@@ -63,7 +63,7 @@ namespace Database_Helpers
 
 
                 #region query_builder
-                string query = "Update " + table_name + " SET ";
+                string query = "Update [" + table_name + "] SET ";
 
                 int count = 0;
                 foreach (var col in dataset)
@@ -102,7 +102,7 @@ namespace Database_Helpers
             try
             {
                 #region query_builder
-                string query = "Delete from " + table_name + " " + where_clause;
+                string query = "Delete from [" + table_name + "] " + where_clause;
                 #endregion
                 Connection.Open();
                 SqlCommand cmd = new SqlCommand(query, Connection);
@@ -117,27 +117,6 @@ namespace Database_Helpers
             }
         }
 
-        public bool log(string type, string description, string performed_by, string performed_on)
-        {
-            try
-            {
-                string query = "Insert into log(type,description,performed_by,performed_on) Values(@type,@desc,@pb,@po)";
-                Connection.Open();
-                SqlCommand cmd = new SqlCommand(query, Connection);
-                cmd.Parameters.AddWithValue("@type", type);
-                cmd.Parameters.AddWithValue("@desc", description);
-                cmd.Parameters.AddWithValue("@pb", performed_by);
-                cmd.Parameters.AddWithValue("@po", performed_on);
-                cmd.ExecuteNonQuery();
-                Connection.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Connection.Close();
-                return false;
-            }
-        }
 
         public string insert_and_get_id(string table_name, Dictionary<string, string> dataset)
         {
@@ -145,7 +124,7 @@ namespace Database_Helpers
             {
                 int id = 0;
                 #region query_builder
-                string query = "Insert into dbo." + table_name + " (";
+                string query = "Insert into dbo.[" + table_name + "] (";
                 foreach (var col in dataset)
                 {
                     query += col.Key.ToString() + ",";
